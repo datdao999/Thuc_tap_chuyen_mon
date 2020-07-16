@@ -1,0 +1,294 @@
+{% extends 'base.html'%}
+
+
+{%block content%}
+
+<style>
+    .cus-num {
+        padding: 12px 15px 12px 15px;
+        background: #f4f4f4;
+        color: #212121;
+        font-weight: 500;
+        font-size: 16px;
+        border: 1px solid #ccc;}
+    .frame-cus {
+        border-left: 1px solid #ccc;
+        border-right: 1px solid #ccc;
+        border-bottom: 1px solid #ccc;
+        padding: 15px;
+        }
+    .mg-bot10 {
+        margin-bottom: 10px;
+    }
+    .row {
+        margin-right: -15px;
+        margin-left: -15px;
+    }
+    .total {
+        padding: 15px 0 0 0;
+        border-top: 1px solid #ccc;
+        margin-top: 15px;
+    }
+    .form-control {
+        display: block;
+        width: 100%;
+        height: 34px;
+        padding: 6px 12px;
+        font-size: 14px;
+        line-height: 1.42857143;
+        color: #555;
+        background-color: #fff;
+        background-image: none;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+        -webkit-box-shadow: inset 0 1px 1px rgba(0,0,0,.075);
+        box-shadow: inset 0 1px 1px rgba(0,0,0,.075);
+        -webkit-transition: border-color ease-in-out .15s,-webkit-box-shadow ease-in-out .15s;
+        -o-transition: border-color ease-in-out .15s,box-shadow ease-in-out .15s;
+        transition: border-color ease-in-out .15s,box-shadow ease-in-out .15s;
+    }
+
+    .price {
+        color: #e70000;
+        font-weight: 500;
+        font-size: 16px;
+    }
+    
+     .day,  .year, .month {
+    width: 100px;
+}
+</style>
+
+<script>
+    function count_amount(form){
+        money = document.getElementById("price").textContent
+        
+        quantity = document.getElementById("quantity").value
+        
+        form.amount.value = money * quantity
+    }
+
+    function setvalue(form){
+        money = document.getElementById("price").textContent
+        form.amount.value = money 
+        alert(money)
+    }
+</script>
+
+<form action = "{{object.get_information_guess}}" method="post">
+    {% csrf_token %}
+    <p style="font-size: 24px; text-align:center">Thông tin liên lạc</p>
+
+    <div class="col-md-6 col-sm-12 col-xs-12" >
+    <div class="form-group">
+        <label>Họ tên (<span class="star">*</span>)</label>
+        <div>
+            <input class="form-control" id="contact_name" name="contact_name" required="required" type="text" value="">
+        </div>
+    </div>
+    <div class="form-group">
+        <label>Di động (<span class="star">*</span>)</label>
+        <div>
+            <input class="form-control" id="mobilephone" name="mobilephone"  required="required" type="text" value="">
+        </div>
+    </div>
+    <div class="form-group">
+        <label>Địa chỉ</label>
+        <div>
+            <input class="form-control" id="address" name="address" type="text" value="">
+        </div>
+    </div>
+    </div>
+
+    <div class="col-md-6 col-sm-12 col-xs-12" >
+        <div class="form-group">
+            <label>Email (<span class="star">*</span>)</label>
+            <div>
+                <input class="form-control"  name="email" required="required" type="email" value="">
+            </div>
+        </div>
+        <div class="form-group">
+            <label>Điện thoại</label>
+            <div>
+                <input class="form-control" id="phone" name="phone"  type="text" value="">
+            </div>
+        </div>
+        
+        <div class="form-group">
+            <div class="row">
+                <div class="col-md-3 col-sm-2 col-xs-6 mg-bot15">
+                    <label>Số người</label>
+                    <div>
+                        <input class="form-control" id="quantity" name="quantity" type="number" value="1" onblur="check_quantity(form)">
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-12 col-sm-12 text-right">
+            Trị giá: <span class="price" id="price">{{object.price_Tour}}</span>
+        </div>
+        <div class="form-group">
+            <div class="row">
+                <div class="col-md-3 col-sm-2 col-xs-6 mg-bot15">
+                    <label>Tổng tiền</label>
+                    <div>
+                        <input class="form-control" id="amount" name="amount" type="number" value="" onload="setvalue(form)" disabled >
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function check_quantity(form){
+            money = document.getElementById("price").textContent
+        
+            quantity = document.getElementById("quantity").value
+        
+            form.amount.value = money * quantity
+
+            var number = document.getElementById('quantity').value;
+            for(var i = 0; i< number; i++){
+                //input ho ten
+                var input_ho_ten = document.createElement('INPUT')
+                input_ho_ten.setAttribute('type', 'text')
+                input_ho_ten.setAttribute('name', '['+i+'].'+'full_name') 
+                input_ho_ten.setAttribute('class', 'form-control')
+                input_ho_ten.required = true
+                document.body.appendChild(input_ho_ten)
+
+                var element1 = document.getElementById('hoten')
+                element1.innerHTML = ""
+                element1.appendChild(input_ho_ten)
+
+                //select gioi tinh 
+                var select_goi_tinh = document.createElement('SELECT')
+                select_goi_tinh.setAttribute('name', '['+i+'].'+'gender') 
+                select_goi_tinh.setAttribute('class', 'form-control')
+                    var nam = document.createElement('option')
+                    nam.setAttribute('value', '1')
+                    nam.text="Nam"
+                    select_goi_tinh.add(nam)
+                    var nu = document.createElement('option')
+                    nu.setAttribute('value', '0')
+                    nu.text="Nữ"
+                    select_goi_tinh.add(nu)
+                document.body.appendChild(select_goi_tinh)
+
+                var element2 = document.getElementById('gioitinh')
+                element2.innerHTML = ""
+                element2.appendChild(select_goi_tinh)
+
+                //select ngay sinh
+                var select_ngay_sinh = document.createElement('input')
+                select_ngay_sinh.setAttribute('type', 'date')
+                select_ngay_sinh.setAttribute('name', '['+i+'].'+'ngaysinh') 
+                select_ngay_sinh.setAttribute('class', 'form-control')
+                
+                   
+                    
+                document.body.appendChild(select_ngay_sinh)
+
+                var element3 = document.getElementById('sinhnhat')
+                element3.innerHTML = ""
+                element3.appendChild(select_ngay_sinh)
+
+                // select thang sinh
+                /*var select_thang_sinh = document.createElement('SELECT')
+                select_thang_sinh.setAttribute('name', '['+i+'].'+'thangsinh') 
+                select_thang_sinh.setAttribute('class', 'form-control')
+                var thangsinh = new Array(12)
+                    for(var i=1; i<13; i++){
+                        thangsinh[i] = document.createElement('option')
+                        thangsinh[i].setAttribute('value', ''+i)
+                        thangsinh[i].text= ''+i
+                        select_thang_sinh.add(thangsinh[i])
+                    }
+                   
+                    
+                document.body.appendChild(select_thang_sinh)
+
+                var element4 = document.getElementById('sinhnhat')
+                element4.appendChild(select_thang_sinh)
+                
+                //select nam sinh
+                var select_nam_sinh = document.createElement('SELECT')
+                select_nam_sinh.setAttribute('name', '['+i+'].'+'thangsinh') 
+                select_nam_sinh.setAttribute('class', 'form-control')
+                var namsinh = new Array(69)
+                    for(var i=2021; i>1952; i--){
+                        namsinh[i] = document.createElement('option')
+                        namsinh[i].setAttribute('value', ''+i)
+                        namsinh[i].text= ''+i
+                        select_nam_sinh.add(namsinh[i])
+                    }
+                   
+                    
+                document.body.appendChild(select_nam_sinh)
+
+                var element5 = document.getElementById('sinhnhat')
+                element5.appendChild(select_nam_sinh)*/
+            }
+        }
+    </script>
+
+    <div>
+        <div class="cus-num">Khách hàng 1</div>
+        <div class="frame-cus">
+            <div class="form-horizontal">
+                <div class="row mg-bot10">
+                    <div class="col-lg-3 col-md-8 col-sm-6 col-xs-12 mg-bot10">
+                        <label class="mg-bot5">Họ tên (<span class="star">*</span>)</label>
+                        <div id = "hoten">
+                            <!--<input class="form-control" name="[0].fullname" required="" type="text" value="">-->
+                        </div>
+                    </div>
+                    <div class="col-lg-2 col-md-4 col-sm-6 col-xs-12 mg-bot10">
+                        <label class="mg-bot5">Giới tính</label>
+                        <div id = 'gioitinh'>
+                            <!--<select class="form-control" name="[0].gender"><option value="0">Nữ</option>
+                                <option value="1">Nam</option>
+                            </select>-->
+                        </div>
+                    </div>
+                    <div class="col-lg-3 col-md-4 col-sm-6 col-xs-12 mg-bot10">
+                        <label class="mg-bot5">Ngày sinh (<span class="star">*</span>)</label>
+                        <div >
+                            <input data-val="true" data-val-date="The field dateofbirth must be a date." id="dateofbirth0" name="[0].dateofbirth" type="hidden" value="">
+                            <div class="date-dropdowns" id='sinhnhat'>
+                                <input type="hidden" id="dob0" name="dob0">
+                                <!--<select class="day hideArow form-control dateDDL" name="dob0_[day]" id="dob0_day">
+                                    <option value="">Ngày</option>-->
+                                    
+                                <!--</select><select class="month hideArow form-control dateDDL" name="dob0_[month]" id="dob0_month">
+                                    <option value="">Tháng</option>
+                                    
+                                </select>
+                                <select class="year hideArow form-control dateDDL" name="dob0_[year]" id="dob0_year" >
+                                    <option value="">Năm</option><option value="2020">2020</option>
+                                    <option value="2019">2019</option> -->
+                            <script>
+                                    $("#dob" + '0').dateDropdowns({
+                                        submitFieldName: 'dob' + '0',
+                                        submitFormat: "dd/mm/yyyy",
+                                        maxAge: 68
+                                        //,required: true
+                                    });
+                                    $('#dob' + '0').change(function () {
+                                        $('#dateofbirth' + '0').val($('#dob' + '0').val());
+                                        CheckDOBByPersonkind();
+                                    });
+                            </script>
+                        </div>
+                    </div>    
+                </div>
+                
+            </div>
+        </div>
+        
+    </div>
+    <input type="submit" value="Thanh Toán" >
+</form>
+
+
+{% endblock content%}

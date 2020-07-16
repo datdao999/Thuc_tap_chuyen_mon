@@ -1,0 +1,16 @@
+{%extends 'base.html'%}
+{% block content %}
+    {% for tour in tours%}
+    <div class="destination item">
+        <div class="destination_image">
+            <img src="{{tour.imageURL}}" alt="" style="width: 290px; height: 211px;">
+            <div class="spec_offer text-center"><a href="#">Special Offer</a></div>
+        </div>
+        <div class="destination_content">
+            <div class="destination_title"><a href="{{tour.get_absolute_url}}" >{{tour.name_Tour}}</a></div>
+            <div class="destination_subtitle"><p>Nulla pretium tincidunt felis, nec.</p></div>
+            <div class="destination_price">${{tour.price_Tour}}</div>
+        </div>
+    </div>
+    {% endfor %}
+{% endblock %}

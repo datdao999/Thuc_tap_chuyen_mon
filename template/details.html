@@ -1,0 +1,19 @@
+{% extends 'base.html'%}
+{%block content%}
+
+      {%for image in image_list%}
+        
+          <img src="{{image.image_Tour.url}}" alt= "">
+                
+      {% endfor %}
+        
+        <p>{{object.detail}}</p>
+        <a href="{{object.get_information_order}}" class="btn btn-primary btn-md my-0 p">
+            Add to cart
+            <i class="fas fa-shopping-cart ml-1"></i>
+          </a>
+        
+    
+    
+    
+{%endblock content%}
