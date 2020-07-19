@@ -1,6 +1,6 @@
 from django.db import models
 from django.shortcuts import reverse
-
+from ckeditor.fields import RichTextField
 
 # Create your models here.
 class Customer(models.Model):
@@ -25,7 +25,7 @@ class Tour(models.Model):
     type_Tour = models.ForeignKey(Type_Tour, on_delete = models.CASCADE)
     image_Tour = models.ImageField(null=True, blank = True)
     last = models.IntegerField()
-    detail = models.TextField(null = True, blank = True)
+    detail = RichTextField(null = True, blank = True)
     slug = models.SlugField()
 
     

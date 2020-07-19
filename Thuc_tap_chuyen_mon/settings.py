@@ -39,6 +39,8 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
 
     'selltour.apps.SelltourConfig',
+    'channels',
+    'ckeditor',
 ]
 
 MIDDLEWARE = [
@@ -70,7 +72,7 @@ TEMPLATES = [
 ]
 
 WSGI_APPLICATION = 'Thuc_tap_chuyen_mon.wsgi.application'
-
+ASGI_APPLICATION = 'Thuc_tap_chuyen_mon.routing.application'
 
 # Database
 # https://docs.djangoproject.com/en/3.0/ref/settings/#databases
@@ -125,3 +127,11 @@ STATICFILES_DIRS = [
 ]
 MEDIA_URL = '/images/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'static/images')
+
+EMAIL_BACKEND = "django.core.mail.backends.smtp.EmailBackend"
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_HOST_USER = "daoducdat633@gmail.com"
+EMAIL_PORT = 587
+EMAIL_HOST_PASSWORD = "#daoducdat999"
+EMAIL_USE_TLS = True
+EMAIL_USE_SSL = False

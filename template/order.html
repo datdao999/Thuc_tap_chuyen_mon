@@ -12,6 +12,7 @@
         font-size: 16px;
         border: 1px solid #ccc;}
     .frame-cus {
+        height: 250px;
         border-left: 1px solid #ccc;
         border-right: 1px solid #ccc;
         border-bottom: 1px solid #ccc;
@@ -31,6 +32,7 @@
     }
     .form-control {
         display: block;
+        
         width: 100%;
         height: 34px;
         padding: 6px 12px;
@@ -92,12 +94,7 @@
             <input class="form-control" id="mobilephone" name="mobilephone"  required="required" type="text" value="">
         </div>
     </div>
-    <div class="form-group">
-        <label>Địa chỉ</label>
-        <div>
-            <input class="form-control" id="address" name="address" type="text" value="">
-        </div>
-    </div>
+    
     </div>
 
     <div class="col-md-6 col-sm-12 col-xs-12" >
@@ -107,12 +104,7 @@
                 <input class="form-control"  name="email" required="required" type="email" value="">
             </div>
         </div>
-        <div class="form-group">
-            <label>Điện thoại</label>
-            <div>
-                <input class="form-control" id="phone" name="phone"  type="text" value="">
-            </div>
-        </div>
+        
         
         <div class="form-group">
             <div class="row">
@@ -125,14 +117,14 @@
             </div>
         </div>
         <div class="col-md-12 col-sm-12 text-right">
-            Trị giá: <span class="price" id="price">{{object.price_Tour}}</span>
+            Trị giá:<span>$</span><span class="price" id="price">{{object.price_Tour}}</span>
         </div>
         <div class="form-group">
             <div class="row">
                 <div class="col-md-3 col-sm-2 col-xs-6 mg-bot15">
                     <label>Tổng tiền</label>
                     <div>
-                        <input class="form-control" id="amount" name="amount" type="number" value="" onload="setvalue(form)" disabled >
+                        <input class="form-control" id="amount" name="amount" type="number" value="{{object.price_Tour}}" disabled >
                     </div>
                 </div>
             </div>
@@ -148,8 +140,18 @@
             form.amount.value = money * quantity
 
             var number = document.getElementById('quantity').value;
+            element1 = document.getElementById('hoten')
+            element1.innerHTML = ""
+
+            var element2 = document.getElementById('gioitinh')
+            element2.innerHTML = ""
+
+            var element3 = document.getElementById('sinhnhat')
+            element3.innerHTML = ""
+            
             for(var i = 0; i< number; i++){
                 //input ho ten
+                
                 var input_ho_ten = document.createElement('INPUT')
                 input_ho_ten.setAttribute('type', 'text')
                 input_ho_ten.setAttribute('name', '['+i+'].'+'full_name') 
@@ -157,8 +159,7 @@
                 input_ho_ten.required = true
                 document.body.appendChild(input_ho_ten)
 
-                var element1 = document.getElementById('hoten')
-                element1.innerHTML = ""
+                
                 element1.appendChild(input_ho_ten)
 
                 //select gioi tinh 
@@ -166,17 +167,16 @@
                 select_goi_tinh.setAttribute('name', '['+i+'].'+'gender') 
                 select_goi_tinh.setAttribute('class', 'form-control')
                     var nam = document.createElement('option')
-                    nam.setAttribute('value', '1')
+                    nam.setAttribute('value', 'True')
                     nam.text="Nam"
                     select_goi_tinh.add(nam)
                     var nu = document.createElement('option')
-                    nu.setAttribute('value', '0')
+                    nu.setAttribute('value', 'False')
                     nu.text="Nữ"
                     select_goi_tinh.add(nu)
                 document.body.appendChild(select_goi_tinh)
 
-                var element2 = document.getElementById('gioitinh')
-                element2.innerHTML = ""
+               
                 element2.appendChild(select_goi_tinh)
 
                 //select ngay sinh
@@ -184,82 +184,43 @@
                 select_ngay_sinh.setAttribute('type', 'date')
                 select_ngay_sinh.setAttribute('name', '['+i+'].'+'ngaysinh') 
                 select_ngay_sinh.setAttribute('class', 'form-control')
-                
-                   
-                    
+                select_ngay_sinh.required = True
                 document.body.appendChild(select_ngay_sinh)
 
-                var element3 = document.getElementById('sinhnhat')
-                element3.innerHTML = ""
+               
                 element3.appendChild(select_ngay_sinh)
 
-                // select thang sinh
-                /*var select_thang_sinh = document.createElement('SELECT')
-                select_thang_sinh.setAttribute('name', '['+i+'].'+'thangsinh') 
-                select_thang_sinh.setAttribute('class', 'form-control')
-                var thangsinh = new Array(12)
-                    for(var i=1; i<13; i++){
-                        thangsinh[i] = document.createElement('option')
-                        thangsinh[i].setAttribute('value', ''+i)
-                        thangsinh[i].text= ''+i
-                        select_thang_sinh.add(thangsinh[i])
-                    }
-                   
-                    
-                document.body.appendChild(select_thang_sinh)
-
-                var element4 = document.getElementById('sinhnhat')
-                element4.appendChild(select_thang_sinh)
-                
-                //select nam sinh
-                var select_nam_sinh = document.createElement('SELECT')
-                select_nam_sinh.setAttribute('name', '['+i+'].'+'thangsinh') 
-                select_nam_sinh.setAttribute('class', 'form-control')
-                var namsinh = new Array(69)
-                    for(var i=2021; i>1952; i--){
-                        namsinh[i] = document.createElement('option')
-                        namsinh[i].setAttribute('value', ''+i)
-                        namsinh[i].text= ''+i
-                        select_nam_sinh.add(namsinh[i])
-                    }
-                   
-                    
-                document.body.appendChild(select_nam_sinh)
-
-                var element5 = document.getElementById('sinhnhat')
-                element5.appendChild(select_nam_sinh)*/
             }
+            element4 = document.getElementById('thongtin').value.resize = 'both'
         }
     </script>
 
     <div>
-        <div class="cus-num">Khách hàng 1</div>
-        <div class="frame-cus">
+        <div class="cus-num">Thông tin khách đi tour</div>
+        <div class="frame-cus" id = "thongtin">
             <div class="form-horizontal">
                 <div class="row mg-bot10">
                     <div class="col-lg-3 col-md-8 col-sm-6 col-xs-12 mg-bot10">
                         <label class="mg-bot5">Họ tên (<span class="star">*</span>)</label>
                         <div id = "hoten">
-                            <!--<input class="form-control" name="[0].fullname" required="" type="text" value="">-->
+                            <input class="form-control" name="[0].fullname" required="" type="text" value="">
                         </div>
                     </div>
                     <div class="col-lg-2 col-md-4 col-sm-6 col-xs-12 mg-bot10">
                         <label class="mg-bot5">Giới tính</label>
                         <div id = 'gioitinh'>
-                            <!--<select class="form-control" name="[0].gender"><option value="0">Nữ</option>
-                                <option value="1">Nam</option>
-                            </select>-->
+                            <select class="form-control" name="[0].gender">
+                                <option value="True">Nam</option>
+                                <option value="False">Nữ</option>
+                            </select>
                         </div>
                     </div>
                     <div class="col-lg-3 col-md-4 col-sm-6 col-xs-12 mg-bot10">
                         <label class="mg-bot5">Ngày sinh (<span class="star">*</span>)</label>
                         <div >
-                            <input data-val="true" data-val-date="The field dateofbirth must be a date." id="dateofbirth0" name="[0].dateofbirth" type="hidden" value="">
-                            <div class="date-dropdowns" id='sinhnhat'>
-                                <input type="hidden" id="dob0" name="dob0">
-                                <!--<select class="day hideArow form-control dateDDL" name="dob0_[day]" id="dob0_day">
-                                    <option value="">Ngày</option>-->
-                                    
+                            <div  id='sinhnhat'>
+                                <input class="form-control" type ='date'  name="[0].ngaysinh" id="[0].ngaysinh" required="required">
+                            
                                 <!--</select><select class="month hideArow form-control dateDDL" name="dob0_[month]" id="dob0_month">
                                     <option value="">Tháng</option>
                                     
