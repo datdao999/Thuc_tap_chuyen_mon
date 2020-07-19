@@ -26,7 +26,7 @@ SECRET_KEY = '*7sua(c)b)pbj=usph+-)!(34f1j^q!3_aysllcc2^p5ol6r!e'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['https://selltour.herokuapp.com','localhost', '127.0.0.1']
 
 
 # Application definition
