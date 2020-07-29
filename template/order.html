@@ -61,21 +61,7 @@
 }
 </style>
 
-<script>
-    function count_amount(form){
-        money = document.getElementById("price").textContent
-        
-        quantity = document.getElementById("quantity").value
-        
-        form.amount.value = money * quantity
-    }
 
-    function setvalue(form){
-        money = document.getElementById("price").textContent
-        form.amount.value = money 
-        alert(money)
-    }
-</script>
 
 <form action = "{{object.get_information_guess}}" method="post">
     {% csrf_token %}
@@ -124,7 +110,7 @@
                 <div class="col-md-3 col-sm-2 col-xs-6 mg-bot15">
                     <label>Tổng tiền</label>
                     <div>
-                        <input class="form-control" id="amount" name="amount" type="number" value="{{object.price_Tour}}" disabled >
+                        <input class="form-control" id="amount" name="amount" type="number" value="{{object.price_Tour}}"  >
                     </div>
                 </div>
             </div>
@@ -140,6 +126,7 @@
             form.amount.value = money * quantity
 
             var number = document.getElementById('quantity').value;
+
             element1 = document.getElementById('hoten')
             element1.innerHTML = ""
 
@@ -149,7 +136,7 @@
             var element3 = document.getElementById('sinhnhat')
             element3.innerHTML = ""
             
-            for(var i = 0; i< number; i++){
+            for(var i = 0; i < number; i++){
                 //input ho ten
                 
                 var input_ho_ten = document.createElement('INPUT')
@@ -184,14 +171,14 @@
                 select_ngay_sinh.setAttribute('type', 'date')
                 select_ngay_sinh.setAttribute('name', '['+i+'].'+'ngaysinh') 
                 select_ngay_sinh.setAttribute('class', 'form-control')
-                select_ngay_sinh.required = True
+                select_ngay_sinh.required = true
                 document.body.appendChild(select_ngay_sinh)
 
                
                 element3.appendChild(select_ngay_sinh)
 
             }
-            element4 = document.getElementById('thongtin').value.resize = 'both'
+           
         }
     </script>
 
@@ -203,7 +190,7 @@
                     <div class="col-lg-3 col-md-8 col-sm-6 col-xs-12 mg-bot10">
                         <label class="mg-bot5">Họ tên (<span class="star">*</span>)</label>
                         <div id = "hoten">
-                            <input class="form-control" name="[0].fullname" required="" type="text" value="">
+                            <input class="form-control" name="[0].full_name" required="" type="text" value="">
                         </div>
                     </div>
                     <div class="col-lg-2 col-md-4 col-sm-6 col-xs-12 mg-bot10">

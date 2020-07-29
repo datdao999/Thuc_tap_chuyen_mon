@@ -77,22 +77,23 @@ def order_tour(request, slug):
     quantity = request.POST.get('quantity', False)
     total_Money = request.POST.get('amount', False)
 
-
-    information_order = Order_Tour.objects.filter(tour = tour )
+    
+    print("Tong tien la:"+str(total_Money))
+    information_order = Order_Tour.objects.filter(tour = tour, customer = customer )
     if not information_order.exists():
         # tạo mới tượng tour  được đặt
         information_order = Order_Tour(tour = tour, customer = customer, Quantity = quantity, Toal_Money= total_Money)
         information_order.save()
 
         # lấy đối tượng tour  được đặt
-    information_order = Order_Tour.objects.filter(tour = tour )
+    information_order = Order_Tour.objects.get(tour = tour, customer = customer )
 
     for i in range(0, int(quantity)):
         full_name = request.POST.get("["+str(i)+"]."+"full_name", False)
         gender = request.POST.get("["+str(i)+"]."+"gender", False)
         birthday = request.POST.get("["+str(i)+"]."+"ngaysinh", False)
        
-        guess = Information_Guess(tour = tour, customer =customer,  name_Guess = full_name, sex = bool(gender), birthday= birthday)
+        guess = Information_Guess(tour = tour, customer = customer,  name_Guess = full_name, sex = bool(gender), birthday= birthday)
         guess.save()
     
     information_guess = Information_Guess.objects.filter(tour = tour, customer = customer)
@@ -100,7 +101,7 @@ def order_tour(request, slug):
     context={
         'customer':customer,
         'tour':tour,
-        'infrmation_order':information_order,
+        'information_order':information_order,
         'information_guess':information_guess
     }
     return render(request, 'checkout.html', context)
@@ -170,7 +171,21 @@ def search (request):
 
 def paymentComplete(request):
     body = json.loads(request.body)
-    print(body)
-    send_mail("Hello from datdao123", "You completed payment", 'daoducdat633@gmail.com', [body], fail_silently=False)
-    print("Gui email thanh cong")
-    return render(request, 'index.html' )
+    email = body['email']
+    print(email)
+    tourId = body['tourId']
+    print(tourId)
+    tourName = body['tourName']
+    print(tourName)
+    total = body['total']
+    print(total)
+    send_mail(
+        "Hello from datdao123", 
+        "You completed payment "+'\n'+'Tour ID:'+str(tourId)+'\n'+"Tour Name:"+str(tourName) + '\n' + "Total:"+str(total), 
+        'daoducdat633@gmail.com', 
+        [email], 
+        fail_silently=False
+    )
+    return HttpResponse("hoan thanh")
+    
+    
